@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Student\TimeTableController;
+use App\Http\Controllers\Student\TimeTableController as StudentTimeTableController;
+use App\Http\Controllers\Teacher\TimeTableController as TeacherTimeTableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,13 +26,17 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])
     ->group(function(){
 
-
-
-
         Route::prefix('student')
             ->name('student.')
             ->group(function(){
-                Route::get('timetable', [TimeTableController::class, 'index'])
+                Route::get('timetable', [StudentTimeTableController::class, 'index'])
+                    ->name('timetable');
+        });
+
+        Route::prefix('teacher')
+            ->name('teacher.')
+            ->group(function(){
+                Route::get('timetable', [TeacherTimeTableController::class, 'index'])
                     ->name('timetable');
         });
 
